@@ -13,17 +13,18 @@ const routes: Routes = [
   {path: 'payment', component: PaymentPageComponent},
   {path: 'course-details', component: CourseDetailsComponent},
   {path: 'home', component: HomePageComponent},
-  //empty path
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  //wildcard, if does not match any
-  {path: '**', redirectTo: '/home', pathMatch: 'full'}
+  // //empty path
+  // {path: '', redirectTo: '/home'},
+  // //wildcard, if does not match any
+  // {path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseDetailsComponent,
-    HomePageComponent
+    HomePageComponent,
+    PaymentPageComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
