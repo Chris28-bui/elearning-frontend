@@ -10,6 +10,10 @@ import { IntroComponent } from './components/intro/intro.component';
 import { PartnerComponent } from './components/partner/partner.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 const routes: Routes = [
   {path: 'course-details', component: CourseDetailsComponent},
@@ -29,11 +33,15 @@ const routes: Routes = [
     IntroComponent,
     PartnerComponent,
     JobsComponent,
-    FooterComponent
+    FooterComponent,
+    CarouselComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
+    CarouselModule,
+    BrowserAnimationsModule
+    // OwlCarousel
   ],
   providers: [],
   bootstrap: [AppComponent]
