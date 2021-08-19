@@ -121,18 +121,18 @@ a:hover {
 
 .page-wrapper {
     overflow: hidden;
-    background: #e5e5e5;
+    background: #fff;
     padding-bottom: 8vh
 }
 
 .page-container {
-    background: #e5e5e5;
+    background: #fff;
     padding-left: 200px
 }
 
 .main-content {
-    padding-top: 116px;
-    min-height: 100vh
+    /* padding-top: 116px;
+    min-height: 100vh */
 }
 
 aside.menu-sidebar.d-none.d-lg-block.clr {
@@ -345,8 +345,8 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
         padding-bottom: 12vh
     }
     .main-content {
-        padding-top: 50px;
-        padding-bottom: 100px
+        /* padding-top: 50px;
+        padding-bottom: 100px */
     }
     .cart-area.d-n {
         display: none
@@ -434,7 +434,7 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
         margin-right: 15px
     }
     .main-content.page-m {
-        padding: 10% 0!important
+        /* padding: 5% 0!important */
     }
     .header-mobile .navbar-mobile {
         display: none;

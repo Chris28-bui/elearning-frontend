@@ -6,7 +6,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
+
+import { CoverComponent } from './components/cover/cover.component';
+import { IntroComponent } from './components/intro/intro.component';
+import { PartnerComponent } from './components/partner/partner.component';
+import { JobsComponent } from './components/jobs/jobs.component';
+import { FooterComponent } from './components/footer/footer.component';
+
 const routes: Routes = [
   {path: 'payment', component: PaymentPageComponent},
   {path: 'course-details', component: CourseDetailsComponent},
@@ -23,6 +31,12 @@ const routes: Routes = [
     CourseDetailsComponent,
     HomePageComponent,
     PaymentPageComponent,
+    CoverComponent,
+    IntroComponent,
+    PartnerComponent,
+    JobsComponent,
+    FooterComponent
+
   ],
   imports: [
     RouterModule.forRoot(routes),
