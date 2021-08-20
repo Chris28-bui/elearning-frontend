@@ -17,6 +17,10 @@ import { JobsComponent } from './components/jobs/jobs.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ScrollingModule as ExperimentalScrollingModule } from '@angular/cdk-experimental/scrolling';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 const routes: Routes = [
   {path: 'payment', component: PaymentPageComponent},
@@ -39,7 +43,7 @@ const routes: Routes = [
     PartnerComponent,
     JobsComponent,
     FooterComponent,
-
+    CarouselComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -48,7 +52,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     ScrollingModule,
     ExperimentalScrollingModule,
-    HttpClientModule
+    HttpClientModule,
+    CarouselModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
