@@ -10,6 +10,8 @@ import { IntroComponent } from './components/intro/intro.component';
 import { PartnerComponent } from './components/partner/partner.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoginComponent } from './components/login/login.component';
+import { LoginStatusComponent } from './components/login-status/login-status.component';
 
 const routes: Routes = [
   {path: 'course-details', component: CourseDetailsComponent},
@@ -29,7 +31,9 @@ const routes: Routes = [
     IntroComponent,
     PartnerComponent,
     JobsComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    LoginStatusComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
