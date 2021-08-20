@@ -1,6 +1,7 @@
 import { Route } from '@angular/compiler/src/core';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { IntroComponent } from './components/intro/intro.component';
 import { PartnerComponent } from './components/partner/partner.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule as ExperimentalScrollingModule } from '@angular/cdk-experimental/scrolling';
 
 const routes: Routes = [
   {path: 'payment', component: PaymentPageComponent},
@@ -35,14 +38,17 @@ const routes: Routes = [
     IntroComponent,
     PartnerComponent,
     JobsComponent,
-    FooterComponent
+    FooterComponent,
 
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ScrollingModule,
+    ExperimentalScrollingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

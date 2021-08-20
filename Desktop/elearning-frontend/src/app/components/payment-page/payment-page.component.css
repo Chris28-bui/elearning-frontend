@@ -10,13 +10,13 @@
 }
 
 .main-content.page-m {
-    padding: 10% 30% 10% 5%!important
+    padding: 3% 30% 20% 5%!important
 }
 
 
 /* 
  * ----------------------------
- * Shopping Cart Checkout
+ * COURSE CHECKOUT
  * ----------------------------
  */
 
@@ -59,7 +59,6 @@ input.au-input.au-input-xl {
 }
 
 .form-area {
-    background: #ffff;
     position: relative;
     margin-bottom: 45px;
     padding: 50px 20px;
@@ -119,4 +118,24 @@ option:first {
 
 select {
     color: #828482
+}
+
+.example-viewport {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+}
+
+.example-item-detail {
+    height: 18px;
+}
+
+.example-alternate {
+    background: rgba(127, 127, 127, 0.3);
+}
+
+.scrolling-text {
+    width: 500px;
+    margin: 20px 0;
+    font-weight: 500;
 }
