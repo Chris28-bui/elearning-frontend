@@ -1,21 +1,29 @@
 import { Route } from '@angular/compiler/src/core';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+
+import { PaymentPageComponent } from './components/payment-page/payment-page.component';
+
 import { CoverComponent } from './components/cover/cover.component';
 import { IntroComponent } from './components/intro/intro.component';
 import { PartnerComponent } from './components/partner/partner.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule as ExperimentalScrollingModule } from '@angular/cdk-experimental/scrolling';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const routes: Routes = [
+  {path: 'payment', component: PaymentPageComponent},
   {path: 'course-details', component: CourseDetailsComponent},
   {path: 'home', component: HomePageComponent},
   //empty path
@@ -29,6 +37,7 @@ const routes: Routes = [
     AppComponent,
     CourseDetailsComponent,
     HomePageComponent,
+    PaymentPageComponent,
     CoverComponent,
     IntroComponent,
     PartnerComponent,
@@ -39,9 +48,13 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ScrollingModule,
+    ExperimentalScrollingModule,
+    HttpClientModule,
     CarouselModule,
     BrowserAnimationsModule
-    // OwlCarousel
   ],
   providers: [],
   bootstrap: [AppComponent]
