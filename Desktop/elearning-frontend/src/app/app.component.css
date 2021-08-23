@@ -208,38 +208,6 @@
   }
 }
 
-.button--white {
-  color: #686f7a;
-  background-color: #fff;
-  border: 1px solid #505763;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 11px 12px;
-  cursor: pointer;
-}
-
-.button--white:hover {
-  color: #29303b;
-  background-color: transparent;
-  border: 1px solid #29303b;
-}
-
-.button--red {
-  color: #fff;
-  background-color: #ec5252;
-  border: 1px solid #ec5252;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 11px 12px;
-  cursor: pointer;
-}
-
-.button--red:hover {
-  color: #fff;
-  background-color: #521822;
-  border: 1px solid #521822;
-}
-
 .page-container{
   position:relative;
   top:66px;

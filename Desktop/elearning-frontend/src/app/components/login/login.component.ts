@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthService } from '@okta/okta-angular';
 
-import myAppConfig from '../config/my-app-config';/* eslint-disable */
+import myAppConfig from '../../config/my-app-config';/* eslint-disable */
 //@ts-ignore
 import OktaSignIn from '@okta/okta-signin-widget';
 /* eslint-enable */
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   oktaSignin: any;
   constructor(private oktaAuthService: OktaAuthService) {
     this.oktaSignin = new OktaSignIn({
-      logo: 'assets/images/logo.png',
+      logo: '../../assets/img/logo-coral.svg',
       baseUrl: myAppConfig.oidc.issuer.split('/oauth2')[0],
       clientId: myAppConfig.oidc.clientId,
       redirectUri: myAppConfig.oidc.redirectUri,
