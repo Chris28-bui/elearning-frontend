@@ -18,7 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ScrollingModule as ExperimentalScrollingModule } from '@angular/cdk-experimental/scrolling';
-import { CarouselComponent, CarouselModule } from 'ngx-owl-carousel-o';
+import {  CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailPageComponent } from './components/detail-page/detail-page.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md'
@@ -32,6 +32,7 @@ import {
 import myAppConfig from './config/my-app-config';
 import { inject } from '@angular/core/testing';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: { get: (arg0: typeof Router) => any; }) => {
