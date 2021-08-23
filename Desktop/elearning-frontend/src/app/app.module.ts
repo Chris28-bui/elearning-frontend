@@ -12,7 +12,6 @@ import { PaymentPageComponent } from './components/payment-page/payment-page.com
 
 import { CoverComponent } from './components/cover/cover.component';
 import { IntroComponent } from './components/intro/intro.component';
-import { PartnerComponent } from './components/partner/partner.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -20,9 +19,12 @@ import { ScrollingModule as ExperimentalScrollingModule } from '@angular/cdk-exp
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailPageComponent } from './components/detail-page/detail-page.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md'
 
 
 const routes: Routes = [
+  {path: 'course-detail/:id', component: DetailPageComponent},
   {path: 'payment', component: PaymentPageComponent},
   {path: 'course-details', component: CourseDetailsComponent},
   {path: 'home', component: HomePageComponent},
@@ -40,10 +42,10 @@ const routes: Routes = [
     PaymentPageComponent,
     CoverComponent,
     IntroComponent,
-    PartnerComponent,
     JobsComponent,
     FooterComponent,
-    CarouselComponent
+    CarouselComponent,
+    DetailPageComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -54,7 +56,8 @@ const routes: Routes = [
     ExperimentalScrollingModule,
     HttpClientModule,
     CarouselModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MDBBootstrapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
