@@ -1,6 +1,6 @@
 <div class="myNavBar__buttons">
-    <button *ngIf="isAuthenticated" class="button button--white" routerLink="/login">Log In</button>
-    <button *ngIf="isAuthenticated" class="button button--red" routerLink="/">Sign Up</button>
+    <button  class="button button--white" routerLink="/login">Log In</button>
+    <button  class="button button--red" routerLink="/">Sign Up</button>
 </div>
 
 <div *ngIf="!isAuthenticated && username" class="dropdown">

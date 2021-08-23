@@ -42,6 +42,7 @@ const oktaConfig = Object.assign({
   }
 }, myAppConfig.oidc)
 const routes: Routes = [
+  {path: 'cart-details', component: CartDetailsComponent},
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
   {path: 'payment', component: PaymentPageComponent},
