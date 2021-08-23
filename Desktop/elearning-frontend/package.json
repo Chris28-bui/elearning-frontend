@@ -21,6 +21,8 @@
         "@angular/platform-browser-dynamic": "~12.2.0",
         "@angular/router": "~12.2.0",
         "@fortawesome/angular-fontawesome": "^0.9.0",
+        "@okta/okta-angular": "^3.2.2",
+        "@okta/okta-signin-widget": "^5.9.4",
         "angular-bootstrap-md": "^12.0.0",
         "bootstrap": "^5.1.0",
         "jquery": "^3.6.0",
