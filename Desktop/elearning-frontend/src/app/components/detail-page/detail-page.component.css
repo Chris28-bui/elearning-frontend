@@ -1,0 +1,299 @@
+section {
+    position: relative
+}
+
+.section-content {
+    position: relative;
+    margin: 20 auto;
+    z-index: 1
+}
+
+.section-content-p30 {
+    padding: 0 30px
+}
+
+
+/*
+ * -------------------------------
+ * COURSE DETAIL PAGE - INTRODUCTION
+ * -------------------------------
+*/
+
+.course-introduction {
+    background: #1c1d1f;
+    padding: 3% 9%;
+    color: white;
+    margin: -65px -25px 0 -25px;
+}
+
+.course-introduction h2 {
+    color: white;
+    padding-bottom: 10px;
+    font-size: 3em;
+    font-weight: 600;
+}
+
+.course-introduction p {
+    margin-bottom: 10px;
+}
+
+.course-rating {
+    margin-bottom: 10px;
+}
+
+.course-rating ul li {
+    display: inline-block;
+    margin: 0 8px 0 0;
+}
+
+.yellow-text {
+    color: #f3ca8c;
+    font-weight: 200;
+}
+
+.link-text {
+    text-decoration: underline;
+    color: #cec0fc;
+    cursor: pointer;
+}
+
+.link-text:hover {
+    text-decoration: underline;
+    color: #cec0fc;
+}
+
+.font-awesome-icon {
+    padding-right: 5px;
+}
+
+.course-button button {
+    color: white;
+    margin-right: 10px;
+    border: 1px solid white;
+    padding: 10px 3px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 20%;
+    text-align: center;
+    transition: all .5s;
+}
+
+.font-awesome-icon-2 {
+    padding: 0 5px;
+}
+
+.font-awesome-icon-2 i {
+    display: block;
+    margin: 0 auto;
+}
+
+.course-button button:hover {
+    background: rgba(255, 255, 255, .3);
+}
+
+.course-img {
+    position: relative;
+    z-index: 100;
+    transform: translate(-15%, 45%);
+    color: #000;
+    display: block;
+    width: 5000px;
+}
+
+.box {
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.course-img-img {
+    width: 150%;
+}
+
+.course-img-img img {
+    width: 120%;
+    height: 100%;
+}
+
+.course-img-info {
+    background: #fff;
+    width: 150%;
+    padding: 0 10px;
+}
+
+.course-img-info h1 {
+    padding: 20px 10px;
+    margin-left: 10px;
+}
+
+.course-img-info button {
+    width: 80%;
+    padding: 10px 10px;
+    margin: 10px 20px;
+}
+
+.course-img-info-button-1 {
+    background: #ec5252;
+    color: white;
+    transition: all .5s;
+}
+
+.course-img-info-button-2 {
+    margin-bottom: 30px;
+    border: 1px solid black;
+    transition: all .5s;
+}
+
+.course-img-info-button-1:hover {
+    background: #ec5252af;
+}
+
+.course-img-info-button-2:hover {
+    background: rgba(0, 0, 0, .1);
+}
+
+
+/*
+ * -------------------------
+ * COURSE CONTENT
+ * -------------------------
+*/
+
+.course-content {
+    margin: 3% 9%;
+    border: 1px solid #D1D7DB;
+    ;
+}
+
+.course-content h2 {
+    margin: 5% 0 3% 1%;
+}
+
+.course-content-p-label {
+    padding: 0 2% 0 2%
+}
+
+.course-content p {
+    margin-top: 1%;
+    border-bottom: 1px solid #D1D7DB;
+    padding-bottom: .5%;
+}
+
+
+/*
+ * ------------------------
+ * COURSE INSTRUCTOR
+ * ------------------------
+*/
+
+.course-instructor {
+    margin: 3% 8%;
+}
+
+.course-instructor h2 {
+    margin-bottom: 3%;
+}
+
+.course-instructor a {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.course-instructor .instructor-profile {
+    margin: 2% 0 2% 0;
+    display: flex;
+}
+
+.course-instructor .instructor-profile img {
+    border-radius: 50%;
+}
+
+.course-instructor .instructor-profile ul {
+    margin-left: 5%;
+    list-style: none;
+}
+
+.limitTextHeight {
+    height: 100px;
+    overflow: hidden;
+}
+
+.btn-read-more {
+    margin-top: 2%;
+    color: #cec0fc;
+}
+
+
+/*
+ * -----------------
+ * COURSE REVIEWS
+ * -----------------
+*/
+
+.course-review {
+    margin: 3% 8%;
+}
+
+.course-review form {
+    margin-bottom: 2%;
+}
+
+.search-input {
+    padding: 2%;
+    height: 40px;
+    margin-top: 2%;
+    margin-right: 0;
+}
+
+.search-icon {
+    margin-top: 2%;
+    font-size: 25px;
+}
+
+.sample-reviews {
+    margin-top: 7%;
+    padding-bottom: 7%;
+    border-bottom: 1px solid black;
+}
+
+.sample-reviews img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.user-review-info .course-rating {
+    margin: 2% 0;
+}
+
+.user-review-info p {
+    margin: 1%;
+}
+
+.user-review-info p:last-child {
+    font-size: 13px;
+}
+
+.user-review-info p:last-child a {
+    color: #D1D7DB;
+    cursor: pointer;
+}
+
+.user-review-footer label {
+    margin-right: 3%;
+}
+
+.user-review-footer label:first-child {
+    border: 2px solid #D1D7DB;
+    border-radius: 50%;
+    padding: 2% 3%;
+}
+
+.user-review-footer label:nth-child(2) {
+    border: 2px solid #D1D7DB;
+    border-radius: 50%;
+    padding: 2% 3%;
+}
+
+.user-review-footer label:last-child a {
+    color: black;
+    text-decoration: underline;
+}
