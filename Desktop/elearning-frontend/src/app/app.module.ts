@@ -33,6 +33,7 @@ import myAppConfig from './config/my-app-config';
 import { inject } from '@angular/core/testing';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { CourseCarouselComponent } from './components/course-carousel/course-carousel.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: { get: (arg0: typeof Router) => any; }) => {
@@ -70,7 +71,8 @@ const routes: Routes = [
     LoginStatusComponent,
     CartDetailsComponent,
     CarouselComponent,
-    DetailPageComponent
+    DetailPageComponent,
+    CourseCarouselComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -83,7 +85,8 @@ const routes: Routes = [
     OktaAuthModule,
     CarouselModule,
     BrowserAnimationsModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    HttpClientModule
   ],
   providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]
