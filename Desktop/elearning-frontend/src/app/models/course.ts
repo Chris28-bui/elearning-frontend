@@ -1,8 +1,10 @@
+import { User } from "./user";
+
 export class Course {
 
     courseImg: String = "";
     courseName: String = "";
-    coursePrice: number = 0;
-    courseInstructor: String = "";
-    
+    price: number = 0;
+    courseInstructor: User = new User();
+    rating: number = 0.0;
 }
