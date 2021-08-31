@@ -4,6 +4,7 @@ import { Course } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
 import { MonthAndYearService } from 'src/app/services/month-and-year.service';
 import { InputValidator } from 'src/app/validators/input-validator';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-payment-page',
@@ -95,14 +96,15 @@ export class PaymentPageComponent implements OnInit {
   onSubmit() {}
 
   listCourses() {
+    console.log("data");
     this.courseService.getCourseMethod().subscribe(
-      data => {
+      (data: any) => {
         console.log("Course List: " + data)
         this.courses = data;
-        
       }
     )
   }
+
   
   
   // Getter methods to get customer information
