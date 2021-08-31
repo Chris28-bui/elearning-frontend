@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OktaAuthService } from '@okta/okta-angular';
 
 @Component({
@@ -9,10 +10,9 @@ import { OktaAuthService } from '@okta/okta-angular';
 export class LoginStatusComponent implements OnInit {
   isAuthenticated: boolean = false;
   username?: string;
-
   storage: Storage = sessionStorage;
 
-  constructor(private oktaAuthService: OktaAuthService) { }
+  constructor(private oktaAuthService: OktaAuthService, private router: Router) { }
 
   ngOnInit(): void {
     //subscribe to authentication state changes
@@ -20,9 +20,9 @@ export class LoginStatusComponent implements OnInit {
       (result) => {
         this.isAuthenticated = result;
         this.getUserDetails();
-        console.log(this.isAuthenticated);
+        // console.log(this.isAuthenticated);
       }
-    )
+    );
   }
   getUserDetails() {
     if(this.isAuthenticated){
@@ -32,10 +32,22 @@ export class LoginStatusComponent implements OnInit {
       this.oktaAuthService.getUser().then(
         res => {
           this.username = res.name;
+        console.log(this.username);
+          this.storage.setItem('username', JSON.stringify(this.username));
         }
       )
     }
   }
+
+  onChange($event: any){
+    if($event.value == "3"){
+      this.router.navigateByUrl("/payment")
+    }
+    if ($event.value == "1"){
+      this.router.navigateByUrl("/home")
+    }
+  }
+
   logout(){
     //Terminates the session with okta and removes current tokens
     this.oktaAuthService.signOut();

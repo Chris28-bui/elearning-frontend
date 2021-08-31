@@ -31,12 +31,16 @@
     border: 1px solid #521822;
   }
 
-  .myNavBar .myNavBar__right .navbar-nav .myNavBar__buttons {
+  /* .myNavBar .myNavBar__right .navbar-nav .myNavBar__buttons {
     display: flex;
+  } */
+
+  .myNavBar{
+    display: inline-block;
   }
   
   .myNavBar .myNavBar__right .navbar-nav .myNavBar__buttons:hover {
-    background-color: transparent;
+    background-color: none;
   }
   
   .myNavBar .myNavBar__right .navbar-nav .myNavBar__buttons .button--white {
@@ -47,5 +51,11 @@
     white-space: nowrap;
   }
 
-  .btn-group{
+  .student__name{
+    color: black;
+    font-size: 15px;
+  }
+
+  .student__name:hover{
+    color: #ec5252;
   }
