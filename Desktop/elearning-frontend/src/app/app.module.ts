@@ -53,7 +53,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'course-detail/:id', component: DetailPageComponent},
   {path: 'payment', component: PaymentPageComponent, canActivate: [OktaAuthGuard]},
-  {path: 'course-details', component: CourseDetailsComponent},
   {path: 'home', component: HomePageComponent},
   //empty path
   {path: '', redirectTo: '/home', pathMatch: 'full'},
