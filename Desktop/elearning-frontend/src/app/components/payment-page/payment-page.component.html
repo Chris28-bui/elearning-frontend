@@ -12,7 +12,7 @@
                         <div class="col-md-3"><label>First Name</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input #customerFirstName formControlName="firstName" type="text">
+                                <input #customerFirstName formControlName="firstName" type="text" (change)="getPaymentMethod()">
 
                                 <div *ngIf="firstName!.invalid && (firstName!.dirty || firstName!.touched) " class="text text-danger mt-1">
                                     <div *ngIf="firstName!.errors!.required || firstName!.errors!.notOnlyWhitespace">
@@ -33,7 +33,7 @@
                         <div class="col-md-3"><label>Last Name</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="lastName" type="text">
+                                <input formControlName="lastName" type="text" (change)="getPaymentMethod()">
 
                                 <div *ngIf="lastName!.invalid && (lastName!.dirty || lastName!.touched)" class="text text-danger mt-1">
                                     <div *ngIf="lastName!.errors!.required || lastName!.errors!.notOnlyWhitespace">
@@ -78,42 +78,9 @@
                     <h3>Credit Card</h3>
 
                     <div class="row">
-                        <div class="col-md-3"><label>Card Type</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <select formControlName="cardType">
-                                    <option>Visa</option>
-                                    <option>Mastercard</option>
-                                </select>
-
-                                <div *ngIf="cardType!.invalid && (cardType!.dirty || cardType!.untouched)" class="text text-danger mt-1">
-                                    * Credit card type is required
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3"><label>Name On Card</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <input formControlName="nameOnCard" type="text">
-
-                                <div *ngIf="nameOnCard!.invalid && (nameOnCard!.dirty || nameOnCard!.touched)" class="text text-danger mt-1">
-                                    * Payee name is required
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-3 mt-2"><label>Card Number</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="listPayment.length == 0">
                                 <input formControlName="cardNumber" type="text">
 
                                 <div *ngIf="cardNumber!.invalid && (cardNumber!.dirty || cardNumber!.touched)" class="text text-danger mt-1">
@@ -128,13 +95,66 @@
 
                             </div>
 
+                            <div *ngIf="listPayment.length > 0" class="input-space">
+                                <select formControlName="cardNumber" #cardNumber (change)="getPaymentInfo(cardNumber.value)">
+                                    <option *ngFor="let tempPayment of listPayment" [value]="tempPayment.cardNumber">
+                                        {{ tempPayment.cardNumber }}
+                                    </option>
+                                    <option>Add a new payment method</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3"><label>Card Type</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space" *ngIf="choosedPayment == null">
+                                <select formControlName="cardType">
+                                    <option>Visa</option>
+                                    <option>Mastercard</option>
+                                </select>
+
+                                <div *ngIf="cardType!.invalid && (cardType!.dirty || cardType!.untouched)" class="text text-danger mt-1">
+                                    * Credit card type is required
+                                </div>
+
+                            </div>
+
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <select formControlName="cardType">
+                                    <option>{{ choosedPayment.cardType }}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3"><label>Name On Card</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space" *ngIf="choosedPayment == null">
+                                <input formControlName="nameOnCard" type="text">
+
+                                <div *ngIf="nameOnCard!.invalid && (nameOnCard!.dirty || nameOnCard!.touched)" class="text text-danger mt-1">
+                                    * Payee name is required
+                                </div>
+
+                            </div>
+
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <input formControlName="nameOnCard" type="text" ngModel="{{ choosedPayment!.cardHolder }}">
+                            </div>
+
+
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3"><label>Security Code</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="choosedPayment == null">
                                 <input formControlName="securityCode" type="text">
 
                                 <div *ngIf="securityCode!.invalid && (securityCode!.dirty || securityCode!.touched)" class="text text-danger mt-1">
@@ -146,6 +166,10 @@
                                     </div>
                                 </div>
 
+                            </div>
+
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <input formControlName="securityCode" type="text" ngModel="{{ choosedPayment!.cvv }}">
                             </div>
 
                         </div>
@@ -167,6 +191,8 @@
 
                                 </select>
                             </div>
+
+
 
                         </div>
                     </div>
@@ -198,7 +224,7 @@
                     <div class="row">
                         <div class="col-md-3"><label>Street</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="choosedPayment == null">
                                 <input formControlName="street" type="text">
 
                                 <div *ngIf="street!.invalid && (street!.dirty || street!.touched)" class="text text-danger mt-1">
@@ -213,13 +239,17 @@
 
                             </div>
 
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <input formControlName="street" type="text" ngModel="{{ address.street }}">
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3"><label> City</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="choosedPayment == null">
                                 <input formControlName="city" type="text">
 
                                 <div *ngIf="city!.invalid && (city!.dirty || city!.touched)" class="text text-danger mt-1">
@@ -233,16 +263,20 @@
 
                             </div>
 
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <input formControlName="city" type="text" ngModel="{{ address.city }}">
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3"><label>Province/State</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="choosedPayment == null">
                                 <input formControlName="province" type="text">
 
-                                <div *ngIf="province!.invalid && (province!.dirty || province!.touched)" class="text text-danger mt-1">
+                                <div *ngIf="province!.invalid && (province!.dirty || province!.touched) " class="text text-danger mt-1">
                                     <div *ngIf="province!.errors!.required || province!.errors!.notOnlyWhitespace">
                                         * Province is required
                                     </div>
@@ -254,13 +288,17 @@
 
                             </div>
 
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <input formControlName="province" type="text" ngModel="{{ address.state }}">
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3"><label>Country</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="choosedPayment == null">
                                 <input formControlName="country" type="text">
 
                                 <div *ngIf="country!.invalid && (country!.dirty || country!.touched)" class="text text-danger mt-1">
@@ -274,21 +312,29 @@
 
                             </div>
 
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <input formControlName="country" type="text" ngModel="{{ address.country }}">
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3"><label>Zip Code</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="choosedPayment == null">
                                 <input formControlName="zipcode" type="text">
 
                                 <div *ngIf="zipcode!.invalid && (zipcode!.dirty || zipcode!.touched)" class="text text-danger mt-1">
-                                    <div *ngIf="zipcode!.errors!.required">
+                                    <div *ngIf="zipcode!.errors!.required ">
                                         * Zip code is required
                                     </div>
                                 </div>
 
+                            </div>
+
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <input formControlName="zipcode" type="text" ngModel="{{ address.zipCode }}">
                             </div>
 
                         </div>
@@ -311,23 +357,23 @@
 
         <div class="col-md-5">
             <cdk-virtual-scroll-viewport autosize style="width: 520px; height: 1100px; border: 3px solid #ccc" class="example-viewport" ref='scrollView'>
-                <div *cdkVirtualFor="let course of courses" class="row course-payment-view">
+                <div *cdkVirtualFor="let course of courses " class="row course-payment-view">
 
                     <div class="container col-md-8">
-                        <p class="example-item-detail ">Name: {{ course.courseName }}</p>
-                        <p class="example-item-detail ">Instructor: {{ course.courseInstructor.username }}</p>
-                        <p class="example-item-detail ">Price: {{ course.price }}</p>
+                        <p class="example-item-detail">Name: {{ course.courseName }}</p>
+                        <p class="example-item-detail">Instructor: {{ course.courseInstructor.username }}</p>
+                        <p class="example-item-detail">Price: {{ course.price }}</p>
                     </div>
                     <div class="col-md-4">
-                        <img src="../../../assets/img/kh1.jpg" alt="avatar ">
+                        <img src="../../../assets/img/kh1.jpg" alt="avatar">
                     </div>
 
                 </div>
             </cdk-virtual-scroll-viewport>
 
             <div>
-                <h3 class="scrolling-text ">Total Quantity: {{ totalQuantity }} course(s)</h3>
-                <h3 class="scrolling-text ">Total Price: {{ totalPrice | currency: 'USD' }}</h3>
+                <h3 class="scrolling-text">Total Quantity: {{ totalQuantity }} course(s)</h3>
+                <h3 class="scrolling-text">Total Price: {{ totalPrice | currency: 'USD' }}</h3>
             </div>
 
         </div>
