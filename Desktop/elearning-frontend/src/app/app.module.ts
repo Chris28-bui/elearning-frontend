@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
@@ -31,9 +30,9 @@ import {
 } from '@okta/okta-angular'
 
 import myAppConfig from './config/my-app-config';
-import { inject } from '@angular/core/testing';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { CourseService } from './services/course.service';
 import { CourseCarouselComponent } from './components/course-carousel/course-carousel.component';
 import { CourseCategoryComponent } from './components/course-category/course-category.component';
@@ -63,7 +62,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    CourseDetailsComponent,
     HomePageComponent,
     PaymentPageComponent,
     CoverComponent,
@@ -90,6 +88,7 @@ const routes: Routes = [
     CarouselModule,
     BrowserAnimationsModule,
     MDBBootstrapModule,
+    NgScrollbarModule,
     HttpClientModule
   ],
   providers: [CourseService, {provide: OKTA_CONFIG, useValue: oktaConfig}],

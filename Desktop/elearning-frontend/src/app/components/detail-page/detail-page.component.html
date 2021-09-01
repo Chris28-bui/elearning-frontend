@@ -7,12 +7,11 @@
 
         <div class="container-fluid row">
             <div class="col-md-8">
-                <h2>Introduction to Java - EE2E</h2>
-                <p>This is course description: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat necessitatibus, quo dicta quos perferendis maxime sunt dolorum? Nemo consectetur minima recusandae, consequuntur fugiat perspiciatis similique
-                    nihil quisquam voluptatibus quia ex.</p>
+                <h2>{{ courseDetail.courseName }}</h2>
+                <p>{{ courseDetail.courseDescription }}</p>
                 <div class="course-rating">
                     <ul style="padding-left: 0;">
-                        <li class="yellow-text">4.5</li>
+                        <li class="yellow-text">{{ courseDetail.rating }}</li>
                         <li class="yellow-text">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -25,8 +24,8 @@
                     </ul>
 
                 </div>
-                <p>Created by: <a class="link-text">Bobby Bui</a></p>
-                <p><label class="font-awesome-icon"><i class="fas fa-exclamation-circle"></i></label>Created at: 08/19 - Last updated: 10/20</p>
+                <p>Created by: <a class="link-text">{{ courseDetail.courseInstructor.username }}</a></p>
+                <p><label class="font-awesome-icon"><i class="fas fa-exclamation-circle"></i></label>Created at: <label class="date">{{ courseDetail.createdAt }} </label> - Last updated: <label class="date">{{ courseDetail.updatedAt }}</label> </p>
                 <div class="course-button">
                     <button>Wishlist<label class="font-awesome-icon-2"><i class="far fa-heart"></i></label></button>
                     <button>Share<label class="font-awesome-icon-2"><i class="fas fa-share"></i></label></button>
@@ -39,9 +38,12 @@
                     <img src="../../../assets/img/kh1.jpg" alt="course-avatar">
                 </div>
                 <div class="course-img-info box">
-                    <h1>CA$21.99</h1>
+                    <h1>{{ courseDetail.price | currency: 'CAD' }}</h1>
+                    <h5>Subtotal: {{ courseDetail.price | currency: 'CAD' }}</h5>
+                    <h5>Tax: {{ tax | currency: 'CAD' }}</h5>
+                    <h5>Total: {{ priceTotal | currency: 'CAD' }}</h5>
                     <p class="divider"></p>
-                    <button class="course-img-info-button-1" routerLink="/cart-details">Add to cart</button>
+                    <button class="course-img-info-button-1" (click)="addToCart()">Add to cart</button>
                     <button class="course-img-info-button-2" routerLink="/payment">Buy now</button>
                 </div>
             </div>
@@ -70,7 +72,7 @@
             <h2>Instructor</h2>
 
             <a href="#">
-                <div class="link-text">John Doe</div>
+                <div class="link-text">{{ courseDetail.courseInstructor.username }}</div>
             </a>
             <p>Java Developer</p>
 
