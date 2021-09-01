@@ -35,8 +35,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { CourseService } from './services/course.service';
 import { CourseCarouselComponent } from './components/course-carousel/course-carousel.component';
-import { CourseCategoryComponent } from './components/course-category/course-category.component';
 import { CourseCategoryPageComponent } from './components/course-category-page/course-category-page.component';
+import { CourseCategoryComponent } from './components/course-category/course-category.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth: OktaAuthGuard, injector: { get: (arg0: typeof Router) => any; }) => {
