@@ -15,7 +15,6 @@ import { CourseCategory } from '../models/course-category';
 export class CourseService {
 
   private courseUrl = 'https://elearning-cybersoft.herokuapp.com';
-  private baseUrl = 'https://elearning-cybersoft.herokuapp.com';
   log: any;
 
   constructor(private httpClient: HttpClient) { }
@@ -30,19 +29,29 @@ export class CourseService {
     );
   }
 
-  getCourseUsingCourseId(courseId: number): Observable<Course> {
+  getCourseByNameAndInstructor(courseName: String, courseInstructor: String): Observable<Course> {
     
-    const searchUrl = `${this.courseUrl}/api/course/${courseId}`;
+    const searchUrl = `${this.courseUrl}/api/course/seach-course/${courseName}/${courseInstructor}`;
 
     return this.httpClient.get<GetCourse>(searchUrl).pipe(
       map (
         data => data.content,
       )
     );
-    }    
+  }
+  
+  getCourseByCourseId(courseId: number): Observable<Course> {
+    const searchUrl = `${this.courseUrl}/api/course/${courseId}`;
+
+    return this.httpClient.get<GetCourse>(searchUrl).pipe(
+      map (
+        data => data.content,
+      )
+    )
+  }
 
   getCourseCategoryMethod(){
-    const courseCategoryUrl = `${this.baseUrl}/api/course/category`;
+    const courseCategoryUrl = `${this.courseUrl}/api/course/category`;
     return this.httpClient.get<GetCourseCategory>(courseCategoryUrl).pipe(
       map(
         data => data.content
