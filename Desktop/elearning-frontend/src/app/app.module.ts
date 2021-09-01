@@ -36,6 +36,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { CourseService } from './services/course.service';
 import { CourseCarouselComponent } from './components/course-carousel/course-carousel.component';
 import { CourseCategoryComponent } from './components/course-category/course-category.component';
+import { CourseCategoryPageComponent } from './components/course-category-page/course-category-page.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth: OktaAuthGuard, injector: { get: (arg0: typeof Router) => any; }) => {
@@ -47,6 +48,7 @@ const oktaConfig = Object.assign({
 }, myAppConfig.oidc);
 
 const routes: Routes = [
+  {path: 'course-category/:name', component: CourseCategoryPageComponent},
   {path: 'cart-details', component: CartDetailsComponent},
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
@@ -74,7 +76,8 @@ const routes: Routes = [
     CarouselComponent,
     DetailPageComponent,
     CourseCarouselComponent,
-    CourseCategoryComponent
+    CourseCategoryComponent,
+    CourseCategoryPageComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

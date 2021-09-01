@@ -27,9 +27,9 @@ export class DetailPageComponent implements OnInit {
 
   getCourseDetail() {
 
-    const courseId: number | null = +this.route.snapshot.paramMap.get('id')!;
+    const courseId: number = +this.route.snapshot.paramMap.get('id')!;
     console.log(courseId);
-    this.courseServive.getCourseUsingCourseId(courseId).subscribe(
+    this.courseServive.getCourseByCourseId(courseId).subscribe(
       data => {
         this.courseDetail = data,
         this.tax = this.courseDetail.price * 13 / 100;
