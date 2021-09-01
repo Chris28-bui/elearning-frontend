@@ -1,0 +1,21 @@
+<div class="section-content section-content-p30">
+    <div class="course-category">
+        <div class="main-content container-fluid">
+            <cdk-virtual-scroll-viewport autosize style="width: 1000px; height: 1100px; border: 3px solid #ccc" class="example-viewport" ref='scrollView'>
+                <div *cdkVirtualFor="let course of courses" class="row course-payment-view">
+
+                    <div class="container col-md-8">
+                        <p class="example-item-detail ">Name: {{ course.courseName }}</p>
+                        <p class="example-item-detail ">Instructor: {{ course.courseInstructor.username }}</p>
+                        <p class="example-item-detail ">Price: {{ course.price }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="../../../assets/img/kh1.jpg" alt="avatar ">
+                    </div>
+
+                </div>
+            </cdk-virtual-scroll-viewport>
+
+        </div>
+    </div>
+</div>
