@@ -7,6 +7,7 @@ import { ModalOptions } from 'angular-bootstrap-md';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { MESSAGES_CONTAINER_ID } from '@angular/cdk/a11y';
 import { CourseItems } from '../models/course-items';
+import { CourseCategory } from '../models/course-category';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { CourseItems } from '../models/course-items';
 export class CourseService {
 
   private courseUrl = 'https://elearning-cybersoft.herokuapp.com';
+  private baseUrl = 'https://elearning-cybersoft.herokuapp.com';
   log: any;
 
   constructor(private httpClient: HttpClient) { }
@@ -37,7 +39,15 @@ export class CourseService {
         data => data.content,
       )
     );
+    }    
 
+  getCourseCategoryMethod(){
+    const courseCategoryUrl = `${this.baseUrl}/api/course/category`;
+    return this.httpClient.get<GetCourseCategory>(courseCategoryUrl).pipe(
+      map(
+        data => data.content
+      )
+    );
   }
 }
 
@@ -50,3 +60,6 @@ interface GetCourse {
 }
 
 
+interface GetCourseCategory {
+  content: CourseCategory[],
+}

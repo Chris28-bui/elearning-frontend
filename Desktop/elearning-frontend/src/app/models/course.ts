@@ -1,5 +1,4 @@
 import { User } from "./user";
-
 export class Course {
     id: number = 0;
     version: number = 0;

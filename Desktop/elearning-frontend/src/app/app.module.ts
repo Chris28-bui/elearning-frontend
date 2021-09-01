@@ -25,28 +25,34 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md'
 import {
   OKTA_CONFIG,
   OktaAuthModule,
-  OktaCallbackComponent
+  OktaCallbackComponent,
+  OktaAuthGuard
 } from '@okta/okta-angular'
 
 import myAppConfig from './config/my-app-config';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { CourseService } from './services/course.service';
+import { CourseCarouselComponent } from './components/course-carousel/course-carousel.component';
+import { CourseCategoryComponent } from './components/course-category/course-category.component';
 
 const oktaConfig = Object.assign({
-  onAuthRequired: (injector: { get: (arg0: typeof Router) => any; }) => {
+  onAuthRequired: (oktaAuth: OktaAuthGuard, injector: { get: (arg0: typeof Router) => any; }) => {
     const router = injector.get(Router);
 
     //redirect the user to custom login page
     router.navigate(['/login']);
   }
-}, myAppConfig.oidc)
+}, myAppConfig.oidc);
+
 const routes: Routes = [
   {path: 'cart-details', component: CartDetailsComponent},
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
   {path: 'course-detail/:id', component: DetailPageComponent},
-  {path: 'payment', component: PaymentPageComponent},
+  {path: 'payment', component: PaymentPageComponent, canActivate: [OktaAuthGuard]},
+  // {path: 'course-details', component: CourseDetailsComponent},
   {path: 'home', component: HomePageComponent},
   //empty path
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -67,7 +73,9 @@ const routes: Routes = [
     LoginStatusComponent,
     CartDetailsComponent,
     CarouselComponent,
-    DetailPageComponent
+    DetailPageComponent,
+    CourseCarouselComponent,
+    CourseCategoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -81,9 +89,10 @@ const routes: Routes = [
     CarouselModule,
     BrowserAnimationsModule,
     MDBBootstrapModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    HttpClientModule
   ],
-  providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
+  providers: [CourseService, {provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
