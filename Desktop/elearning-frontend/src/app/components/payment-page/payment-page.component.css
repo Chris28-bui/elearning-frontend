@@ -139,3 +139,13 @@ select {
     margin: 20px 0;
     font-weight: 500;
 }
+
+.course-payment-view {
+    margin: 20px 10px 10px 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.checkbox {
+    margin-left: 25px;
+    margin-bottom: 30px;
+}

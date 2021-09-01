@@ -2,27 +2,51 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { ModalOptions } from 'angular-bootstrap-md';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+import { MESSAGES_CONTAINER_ID } from '@angular/cdk/a11y';
+import { CourseItems } from '../models/course-items';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
 
-  private courseUrl = 'https://elearning-cybersoft.herokuapp.com/swagger-ui.html#/course-controller/findAllCourseUsingGET';
+  private courseUrl = 'https://elearning-cybersoft.herokuapp.com';
+  log: any;
 
   constructor(private httpClient: HttpClient) { }
 
   getCourseMethod(): Observable<Course[]> {
-    console.log("Successfully come to here");
-    return this.httpClient.get<GetResponseCourse>(this.courseUrl).pipe(
-      map(response => response.content.courses)
-    ); 
+    const searchUrl = `${this.courseUrl}/api/course`;
+
+    return this.httpClient.get<GetCourses>(searchUrl).pipe(
+      map(
+        data => data.content,
+      )
+    );
+  }
+
+  getCourseUsingCourseId(courseId: number): Observable<Course> {
+    
+    const searchUrl = `${this.courseUrl}/api/course/${courseId}`;
+
+    return this.httpClient.get<GetCourse>(searchUrl).pipe(
+      map (
+        data => data.content,
+      )
+    );
+
   }
 }
 
-interface GetResponseCourse {
-  content: {
-    courses: Course[];
-  }
+interface GetCourses {
+  content: Course[],
 }
+
+interface GetCourse {
+  content: Course;
+}
+
+

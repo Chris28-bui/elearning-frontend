@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
@@ -30,9 +29,9 @@ import {
 } from '@okta/okta-angular'
 
 import myAppConfig from './config/my-app-config';
-import { inject } from '@angular/core/testing';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: { get: (arg0: typeof Router) => any; }) => {
@@ -48,7 +47,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'course-detail/:id', component: DetailPageComponent},
   {path: 'payment', component: PaymentPageComponent},
-  {path: 'course-details', component: CourseDetailsComponent},
   {path: 'home', component: HomePageComponent},
   //empty path
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -59,7 +57,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    CourseDetailsComponent,
     HomePageComponent,
     PaymentPageComponent,
     CoverComponent,
@@ -83,7 +80,8 @@ const routes: Routes = [
     OktaAuthModule,
     CarouselModule,
     BrowserAnimationsModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    NgScrollbarModule
   ],
   providers: [{provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]
