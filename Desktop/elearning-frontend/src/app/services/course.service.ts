@@ -3,14 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course';
 import { map, tap } from 'rxjs/operators';
+import { CourseCategory } from '../models/course-category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-
-  // private courseUrl = 'https://elearning-cybersoft.herokuapp.com/swagger-ui.html#/course-controller/findAllCourseUsingGET';
-  // private courseUrl = 'http://localhost:8089/api/course';
   private baseUrl = 'https://elearning-cybersoft.herokuapp.com';
   constructor(private httpClient: HttpClient) { }
 
@@ -28,13 +26,20 @@ export class CourseService {
     ); 
   }
 
-  // getCourseMethod(): Observable<Course[]>{
-  //   return this.httpClient.get<GetResponseCourse>(this.courseUrl).pipe(
-  //     map(response => response.content.courses)
-  //   );
-  // }
+  getCourseCategoryMethod(){
+    const courseCategoryUrl = `${this.baseUrl}/api/course/category`;
+    return this.httpClient.get<GetCourseCategory>(courseCategoryUrl).pipe(
+      map(
+        data => data.content
+      )
+    );
+  }
 }
 
 interface GetCourses {
   content: Course[],
+}
+
+interface GetCourseCategory {
+  content: CourseCategory[],
 }

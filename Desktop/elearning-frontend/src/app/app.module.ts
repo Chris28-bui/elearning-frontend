@@ -36,6 +36,7 @@ import { CartDetailsComponent } from './components/cart-details/cart-details.com
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CourseService } from './services/course.service';
 import { CourseCarouselComponent } from './components/course-carousel/course-carousel.component';
+import { CourseCategoryComponent } from './components/course-category/course-category.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth: OktaAuthGuard, injector: { get: (arg0: typeof Router) => any; }) => {
@@ -52,7 +53,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'course-detail/:id', component: DetailPageComponent},
   {path: 'payment', component: PaymentPageComponent, canActivate: [OktaAuthGuard]},
-  {path: 'course-details', component: CourseDetailsComponent},
   {path: 'home', component: HomePageComponent},
   //empty path
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -75,7 +75,8 @@ const routes: Routes = [
     CartDetailsComponent,
     CarouselComponent,
     DetailPageComponent,
-    CourseCarouselComponent
+    CourseCarouselComponent,
+    CourseCategoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
