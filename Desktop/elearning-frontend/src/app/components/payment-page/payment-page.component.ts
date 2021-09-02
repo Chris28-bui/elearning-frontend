@@ -2,7 +2,8 @@ import { NgZone } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgScrollbar } from 'ngx-scrollbar';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+// import { NgScrollbar } from 'ngx-scrollbar';
 import { Subject, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Course } from 'src/app/models/course';
@@ -14,6 +15,7 @@ import { MonthAndYearService } from 'src/app/services/month-and-year.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { InputValidator } from 'src/app/validators/input-validator';
 import { HttpClient } from '@angular/common/http';
+import { Address } from 'src/app/models/address';
 
 @Component({
   selector: 'app-payment-page',
@@ -23,36 +25,51 @@ import { HttpClient } from '@angular/common/http';
 
 export class PaymentPageComponent implements OnInit {
 
-  @ViewChild(NgScrollbar) scrollbarRef: NgScrollbar | undefined;
-  unsubscriber$ = Subscription.EMPTY;
-  size$ = new Subject();
+  // Scroll bar variable
+  // @ViewChild(NgScrollbar) scrollbarRef: NgScrollbar | undefined;
+  // unsubscriber$ = Subscription.EMPTY;
+  // size$ = new Subject();
 
+  // Constructor payment form group
   paymentFormGroup: FormGroup | undefined;
 
+  // get credit card month and year
   creditCardMonth: number[] = [];
   creditCardYear: number[] = [];
 
+  // show price, quantity, courses for schroll bar
   totalPrice: number = 0;
   totalQuantity: number = 0;
   courses: CourseItems[] = [];
 
-  payment: Payment = new Payment();
+  // Payment related varaibles
+  newPayment: Payment = new Payment();
+  listPayment: Payment[] = [];
+  choosedPayment?: Payment | null;
+
+  // Helper variables for Payment Form Group
+  expiredMonth: String = "";
+  expiredYear: String = "";
+  address: Address = new Address();
+
+  // check if payment already exists
+  alreadyExists?: Payment;
 
   storage: Storage = localStorage;
   
   constructor(private paymentService: MonthAndYearService, private formBuilder: FormBuilder, private ngZone: NgZone, private courseCartService: CourseCartService, private userPaymentService: PaymentService, private router: Router) { }
 
-  ngAfterViewInit() {
-    // Subscribe to <ng-scrollbar> scroll event
-    this.unsubscriber$ = this.scrollbarRef!.scrollable.elementScrolled().pipe(
-      map((e: any) => e.target.scrollTop > 50 ? '0.75em' : '1em'),
-      tap((size: string) => this.ngZone.run(() => this.size$.next(size)))
-    ).subscribe();
-  }
+  // ngAfterViewInit() {
+  //   // Subscribe to <ng-scrollbar> scroll event
+  //   this.unsubscriber$ = this.scrollbarRef!.scrollable.elementScrolled().pipe(
+  //     map((e: any) => e.target.scrollTop > 50 ? '0.75em' : '1em'),
+  //     tap((size: string) => this.ngZone.run(() => this.size$.next(size)))
+  //   ).subscribe();
+  // }
   
-  ngOnDestroy() {
-    this.unsubscriber$.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.unsubscriber$.unsubscribe();
+  // }
 
   ngOnInit(): void {
 
@@ -125,56 +142,119 @@ export class PaymentPageComponent implements OnInit {
 
   }
 
+  getPaymentMethod() {
+
+    if (this.paymentFormGroup!.get('customer.firstName')!.value != null && this.paymentFormGroup!.get('customer.lastName')!.value != null) {
+      let username = this.paymentFormGroup!.get('customer.firstName')!.value + " " + this.paymentFormGroup!.get('customer.lastName')!.value;
+
+      this.userPaymentService.findPaymentCardNumberMethod(username).subscribe(
+        data => {
+          this.listPayment = data;
+        }
+      )
+    }
+
+  }
+
+  getPaymentInfo(cardNumber: String) {
+    if (cardNumber != "") {
+      this.userPaymentService.findPaymentInfoUsingCardNumberMethod(cardNumber).subscribe(
+        data => {
+          this.choosedPayment = data;
+          this.extractInfo();
+        }
+      );
+    } else {
+      this.addNewPayment();
+    }
+    
+  }
+
+  extractInfo() {
+
+    let index: number = this.choosedPayment!.dateExpired?.indexOf("/")!;
+
+    this.expiredMonth = this.choosedPayment!.dateExpired?.slice(0, index)!;
+    this.expiredYear = this.choosedPayment!.dateExpired!.slice(index + 1, (this.choosedPayment!.dateExpired!.length))
+
+    let billingAddressTemp = this.choosedPayment!.billingAddress!.split(", ");
+
+    this.address.street = billingAddressTemp[0];
+    this.address.city = billingAddressTemp[1];
+    this.address.state = billingAddressTemp[2];
+    this.address.country = billingAddressTemp[3];
+    this.address.zipCode = billingAddressTemp[4];
+
+  }
+
   onSubmit() {
 
     if (this.paymentFormGroup!.controls['checkboxToSave'].value) {
-      this.payment.billingAddress = this.paymentFormGroup!.get('billingAddress.street')!.value + ", " + this.paymentFormGroup!.get('billingAddress.city')!.value + ", " + this.paymentFormGroup!.get('billingAddress.province')!.value + ", " + this.paymentFormGroup!.get('billingAddress.country')!.value + ", " + this.paymentFormGroup!.get('billingAddress.zipcode')!.value;
+      this.newPayment.billingAddress = this.paymentFormGroup!.get('billingAddress.street')!.value + ", " + this.paymentFormGroup!.get('billingAddress.city')!.value + ", " + this.paymentFormGroup!.get('billingAddress.province')!.value + ", " + this.paymentFormGroup!.get('billingAddress.country')!.value + ", " + this.paymentFormGroup!.get('billingAddress.zipcode')!.value;
       // console.log("Object form: ", JSON.parse(tempAddress)) 
-      this.payment.cardType = this.paymentFormGroup!.get('creditcard.cardType')!.value;
-      this.payment.cardHolder = this.paymentFormGroup!.get('creditcard.nameOnCard')!.value;
-      this.payment.cardNumber = this.paymentFormGroup!.get('creditcard.cardNumber')!.value;
-      this.payment.cvv = this.paymentFormGroup!.get('creditcard.securityCode')!.value;
+      this.newPayment.cardType = this.paymentFormGroup!.get('creditcard.cardType')!.value;
+      this.newPayment.cardHolder = this.paymentFormGroup!.get('creditcard.nameOnCard')!.value;
+      this.newPayment.cardNumber = this.paymentFormGroup!.get('creditcard.cardNumber')!.value;
+      this.newPayment.cvv = this.paymentFormGroup!.get('creditcard.securityCode')!.value;
 
       let tempExpiredDate = this.paymentFormGroup!.get('creditcard.expirationMonth')!.value + "/" + this.paymentFormGroup!.get('creditcard.expirationYear')!.value;
-      this.payment.dateExpired = tempExpiredDate;
+      this.newPayment.dateExpired = tempExpiredDate;
 
-      this.payment.email = this.paymentFormGroup!.get('customer.email')!.value;
-      this.payment.user = this.paymentFormGroup!.get('customer.firstName')!.value + " " + this.paymentFormGroup!.get('customer.lastName')!.value;
+      this.newPayment.email = this.paymentFormGroup!.get('customer.email')!.value;
+      this.newPayment.user = this.paymentFormGroup!.get('customer.firstName')!.value + " " + this.paymentFormGroup!.get('customer.lastName')!.value;
 
-      this.userPaymentService.savePaymentMethod(this.payment).subscribe(
-        {
-
-          // successful placeOrder
-          next: response => {
-            alert(`Your payment is added successfully.`);
-
-            this.resetCard();
-          },
-
-          error: err => {
-          alert(`There is an error: ${err.message}`)
+      
+      this.userPaymentService.findPaymentInfoUsingCardNumberMethod(this.newPayment.cardNumber!).subscribe(
+        data => {
+          this.alreadyExists = data;
         }
-        },
-      );
+      )
 
+      if(this.alreadyExists == null) {
+        console.log("True");
+        this.userPaymentService.savePaymentMethod(this.newPayment).subscribe(
+          {
+            // successful placeOrder
+            next: response => {
+              alert(`We have received your paymment.\nYour payment is added successfully.`);
+
+            },
+  
+            error: err => {
+              alert(`There is an error: ${err.message}`)
+            }
+          },
+        );
+      } else {
+        alert(`We have received your payment.`)
+        console.log("False");
+
+      }
+
+      this.resetCart();
 
     }
 
   }
 
-  resetCard() {
+  resetCart() {
     // reset cart data
     this.courseCartService.totalPrice.next(0);
     this.courseCartService.totalQuantity.next(0);
     this.courseCartService.courseCart = [];
 
-    this.storage.removeItem('cart item(s)');
+    this.storage.removeItem('cart item(s): ');
 
     // reset the form
     this.paymentFormGroup?.reset();
 
     // navigate back to the main products page
     this.router.navigateByUrl("/home");
+  }
+
+  addNewPayment() {
+    console.log("come To here")
+    this.listPayment = [];
   }
 
   listCourses() {

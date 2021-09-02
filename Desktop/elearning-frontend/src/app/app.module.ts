@@ -32,7 +32,7 @@ import {
 import myAppConfig from './config/my-app-config';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { NgScrollbarModule } from 'ngx-scrollbar';
+// import { NgScrollbarModule } from 'ngx-scrollbar';
 import { CourseService } from './services/course.service';
 import { CourseCarouselComponent } from './components/course-carousel/course-carousel.component';
 import { CourseCategoryComponent } from './components/course-category/course-category.component';
@@ -91,8 +91,8 @@ const routes: Routes = [
     CarouselModule,
     BrowserAnimationsModule,
     MDBBootstrapModule,
-    NgScrollbarModule,
-    HttpClientModule
+    // NgScrollbarModule,
+    HttpClientModule,
   ],
   providers: [CourseService, {provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]
