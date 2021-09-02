@@ -2,7 +2,8 @@ import { NgZone } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgScrollbar } from 'ngx-scrollbar';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+// import { NgScrollbar } from 'ngx-scrollbar';
 import { Subject, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Course } from 'src/app/models/course';
@@ -25,9 +26,9 @@ import { Address } from 'src/app/models/address';
 export class PaymentPageComponent implements OnInit {
 
   // Scroll bar variable
-  @ViewChild(NgScrollbar) scrollbarRef: NgScrollbar | undefined;
-  unsubscriber$ = Subscription.EMPTY;
-  size$ = new Subject();
+  // @ViewChild(NgScrollbar) scrollbarRef: NgScrollbar | undefined;
+  // unsubscriber$ = Subscription.EMPTY;
+  // size$ = new Subject();
 
   // Constructor payment form group
   paymentFormGroup: FormGroup | undefined;
@@ -58,17 +59,17 @@ export class PaymentPageComponent implements OnInit {
   
   constructor(private paymentService: MonthAndYearService, private formBuilder: FormBuilder, private ngZone: NgZone, private courseCartService: CourseCartService, private userPaymentService: PaymentService, private router: Router) { }
 
-  ngAfterViewInit() {
-    // Subscribe to <ng-scrollbar> scroll event
-    this.unsubscriber$ = this.scrollbarRef!.scrollable.elementScrolled().pipe(
-      map((e: any) => e.target.scrollTop > 50 ? '0.75em' : '1em'),
-      tap((size: string) => this.ngZone.run(() => this.size$.next(size)))
-    ).subscribe();
-  }
+  // ngAfterViewInit() {
+  //   // Subscribe to <ng-scrollbar> scroll event
+  //   this.unsubscriber$ = this.scrollbarRef!.scrollable.elementScrolled().pipe(
+  //     map((e: any) => e.target.scrollTop > 50 ? '0.75em' : '1em'),
+  //     tap((size: string) => this.ngZone.run(() => this.size$.next(size)))
+  //   ).subscribe();
+  // }
   
-  ngOnDestroy() {
-    this.unsubscriber$.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.unsubscriber$.unsubscribe();
+  // }
 
   ngOnInit(): void {
 
