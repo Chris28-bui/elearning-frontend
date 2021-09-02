@@ -37,6 +37,7 @@ import { CourseService } from './services/course.service';
 import { CourseCarouselComponent } from './components/course-carousel/course-carousel.component';
 import { CourseCategoryComponent } from './components/course-category/course-category.component';
 import { CourseCategoryPageComponent } from './components/course-category-page/course-category-page.component';
+import { SearchComponent } from './components/search/search.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth: OktaAuthGuard, injector: { get: (arg0: typeof Router) => any; }) => {
@@ -48,6 +49,7 @@ const oktaConfig = Object.assign({
 }, myAppConfig.oidc);
 
 const routes: Routes = [
+  {path: 'search/:name', component: CourseCategoryPageComponent},
   {path: 'course-category/:name', component: CourseCategoryPageComponent},
   {path: 'cart-details', component: CartDetailsComponent},
   {path: 'login/callback', component: OktaCallbackComponent},
@@ -77,7 +79,8 @@ const routes: Routes = [
     DetailPageComponent,
     CourseCarouselComponent,
     CourseCategoryComponent,
-    CourseCategoryPageComponent
+    CourseCategoryPageComponent,
+    SearchComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

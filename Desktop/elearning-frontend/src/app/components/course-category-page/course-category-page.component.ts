@@ -14,17 +14,40 @@ export class CourseCategoryPageComponent implements OnInit {
   courses: Course[] = [];
   courseCategory!: String; 
   courseId!: number;
+  searchMode: boolean = false;
  
 
-  constructor(private courseCategoryService: CourseCategoryService, private router: ActivatedRoute, private route: Router, private courseService: CourseService) { }
-
+  constructor(private courseCategoryService: CourseCategoryService, private route: ActivatedRoute, private router: Router, private courseService: CourseService) { 
+  }
   ngOnInit(): void {
+    
+    // this.getCourseByCourseCategory()
+    this.route.paramMap.subscribe(()=>{
+      this.showListCourse();
+    })
+  }
 
-    this.getCourseByCourseCategory()
+  showListCourse() {
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+    if(this.searchMode) {
+      this.handleSearchCourse();
+    } else {
+      this.getCourseByCourseCategory();
+    }
+  }
+
+  handleSearchCourse(){
+     const searchKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+
+     this.courseCategoryService.getCourseByCourseCategory(searchKeyword).subscribe(
+       data => {
+         this.courses = data;
+       }
+     )
   }
 
   getCourseByCourseCategory() {
-    this.courseCategory = this.router.snapshot.paramMap.get('name')!;
+    this.courseCategory = this.route.snapshot.paramMap.get('name')!;
 
     this.courseCategoryService.getCourseByCourseCategory(this.courseCategory).subscribe(
       data => {
@@ -35,7 +58,7 @@ export class CourseCategoryPageComponent implements OnInit {
 
   getCourseName() {
     
-    const courseName = this.router.snapshot.paramMap.get('name')!;
+    const courseName = this.route.snapshot.paramMap.get('name')!;
 
     this.courseCategoryService.getCourseByCourseName(courseName).subscribe(
       data => {
@@ -50,7 +73,7 @@ export class CourseCategoryPageComponent implements OnInit {
 
     this.courseService.getCourseByNameAndInstructor(courseName, courseInstructor).subscribe(
       data => {
-        this.route.navigateByUrl(`/course-detail/${data.id}`)
+        this.router.navigateByUrl(`/course-detail/${data.id}`)
       }
     )
 
