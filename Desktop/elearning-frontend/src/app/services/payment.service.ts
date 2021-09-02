@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Payment } from '../models/payment';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { Payment } from '../models/payment';
 export class PaymentService {
 
   private paymentUrl  = 'https://elearning-cybersoft.herokuapp.com/api/payment';
+  // private paymentUrl = 'http://localhost:8089/api/payment';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -50,3 +51,4 @@ interface GetPayments {
 interface GetPayment {
   content: Payment;
 }
+
