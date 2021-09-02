@@ -81,7 +81,7 @@
                         <div class="col-md-3 mt-2"><label>Card Number</label></div>
                         <div class="col-md-9">
                             <div class="input-space" *ngIf="listPayment.length == 0">
-                                <input formControlName="cardNumber" type="text">
+                                <input formControlName="cardNumber" type="text" ngModel="">
 
                                 <div *ngIf="cardNumber!.invalid && (cardNumber!.dirty || cardNumber!.touched)" class="text text-danger mt-1">
                                     <div *ngIf="cardNumber!.errors!.required || cardNumber!.errors!.notOnlyWhitespace">
@@ -135,7 +135,7 @@
                         <div class="col-md-3"><label>Name On Card</label></div>
                         <div class="col-md-9">
                             <div class="input-space" *ngIf="choosedPayment == null">
-                                <input formControlName="nameOnCard" type="text">
+                                <input formControlName="nameOnCard" type="text" ngModel="">
 
                                 <div *ngIf="nameOnCard!.invalid && (nameOnCard!.dirty || nameOnCard!.touched)" class="text text-danger mt-1">
                                     * Payee name is required
@@ -155,7 +155,7 @@
                         <div class="col-md-3"><label>Security Code</label></div>
                         <div class="col-md-9">
                             <div class="input-space" *ngIf="choosedPayment == null">
-                                <input formControlName="securityCode" type="text">
+                                <input formControlName="securityCode" type="text" ngModel="">
 
                                 <div *ngIf="securityCode!.invalid && (securityCode!.dirty || securityCode!.touched)" class="text text-danger mt-1">
                                     <div *ngIf="securityCode!.errors!.required || securityCode!.errors!.notOnlyWhitespace">
@@ -178,9 +178,9 @@
                     <div class="row">
                         <div class="col-md-3"><label>Expiration Month</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="choosedPayment == null">
                                 <select formControlName="expirationMonth">
-                                    <option *ngFor="let month of creditCardMonth">
+                                    <option *ngFor="let month of creditCardMonth" selected="{{ isSelected }}">
                                         {{ month }}
                                     </option>
 
@@ -192,7 +192,11 @@
                                 </select>
                             </div>
 
-
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <select formControlName="expirationMonth">
+                                    <option>{{ expiredMonth }}</option>
+                                </select>
+                            </div>
 
                         </div>
                     </div>
@@ -200,7 +204,7 @@
                     <div class="row">
                         <div class="col-md-3"><label>Expiration Year</label></div>
                         <div class="col-md-9">
-                            <div class="input-space">
+                            <div class="input-space" *ngIf="choosedPayment == null">
                                 <select formControlName="expirationYear" (change)="handleMonthsAndYears()">
                                     <option *ngFor="let year of creditCardYear">
                                         {{ year }}
@@ -210,6 +214,12 @@
                                 <div *ngIf="expirationYear!.untouched" class="text text-danger mt-1">
                                     * Expiration Year of credit card is required
                                 </div>
+                            </div>
+
+                            <div class="input-space" *ngIf="choosedPayment != null">
+                                <select formControlName="expirationMonth">
+                                    <option>{{ expiredYear }}</option>
+                                </select>
                             </div>
 
                         </div>
@@ -225,7 +235,7 @@
                         <div class="col-md-3"><label>Street</label></div>
                         <div class="col-md-9">
                             <div class="input-space" *ngIf="choosedPayment == null">
-                                <input formControlName="street" type="text">
+                                <input formControlName="street" type="text" ngModel="">
 
                                 <div *ngIf="street!.invalid && (street!.dirty || street!.touched)" class="text text-danger mt-1">
                                     <div *ngIf="street!.errors!.required || street!.errors!.notOnlyWhitespace">
@@ -250,7 +260,7 @@
                         <div class="col-md-3"><label> City</label></div>
                         <div class="col-md-9">
                             <div class="input-space" *ngIf="choosedPayment == null">
-                                <input formControlName="city" type="text">
+                                <input formControlName="city" type="text" ngModel="">
 
                                 <div *ngIf="city!.invalid && (city!.dirty || city!.touched)" class="text text-danger mt-1">
                                     <div *ngIf="city!.errors!.required || city!.errors!.notOnlyWhitespace">
@@ -274,7 +284,7 @@
                         <div class="col-md-3"><label>Province/State</label></div>
                         <div class="col-md-9">
                             <div class="input-space" *ngIf="choosedPayment == null">
-                                <input formControlName="province" type="text">
+                                <input formControlName="province" type="text" ngModel="">
 
                                 <div *ngIf="province!.invalid && (province!.dirty || province!.touched) " class="text text-danger mt-1">
                                     <div *ngIf="province!.errors!.required || province!.errors!.notOnlyWhitespace">
@@ -299,7 +309,7 @@
                         <div class="col-md-3"><label>Country</label></div>
                         <div class="col-md-9">
                             <div class="input-space" *ngIf="choosedPayment == null">
-                                <input formControlName="country" type="text">
+                                <input formControlName="country" type="text" ngModel="">
 
                                 <div *ngIf="country!.invalid && (country!.dirty || country!.touched)" class="text text-danger mt-1">
                                     <div *ngIf="country!.errors!.required || country!.errors!.notOnlyWhitespace">
@@ -323,7 +333,7 @@
                         <div class="col-md-3"><label>Zip Code</label></div>
                         <div class="col-md-9">
                             <div class="input-space" *ngIf="choosedPayment == null">
-                                <input formControlName="zipcode" type="text">
+                                <input formControlName="zipcode" type="text" ngModel="">
 
                                 <div *ngIf="zipcode!.invalid && (zipcode!.dirty || zipcode!.touched)" class="text text-danger mt-1">
                                     <div *ngIf="zipcode!.errors!.required ">

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 // import { NgScrollbar } from 'ngx-scrollbar';
 import { Subject, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { isEmpty, map, tap } from 'rxjs/operators';
 import { Course } from 'src/app/models/course';
 import { CourseItems } from 'src/app/models/course-items';
 import { Payment } from 'src/app/models/payment';
@@ -53,7 +53,7 @@ export class PaymentPageComponent implements OnInit {
   address: Address = new Address();
 
   // check if payment already exists
-  alreadyExists?: Payment;
+  isSelected: boolean = false;
 
   storage: Storage = localStorage;
   
@@ -157,7 +157,8 @@ export class PaymentPageComponent implements OnInit {
   }
 
   getPaymentInfo(cardNumber: String) {
-    if (cardNumber != "") {
+    console.log(cardNumber);
+    if (cardNumber != "Add a new payment method") {
       this.userPaymentService.findPaymentInfoUsingCardNumberMethod(cardNumber).subscribe(
         data => {
           this.choosedPayment = data;
@@ -206,31 +207,27 @@ export class PaymentPageComponent implements OnInit {
       
       this.userPaymentService.findPaymentInfoUsingCardNumberMethod(this.newPayment.cardNumber!).subscribe(
         data => {
-          this.alreadyExists = data;
+          if(!data.cardNumber) {
+            this.userPaymentService.savePaymentMethod(this.newPayment).subscribe(
+              {
+                // successful placeOrder
+                next: response => {
+                  alert(`We have received your payment.\nYour new payment is added successfully.`);
+    
+                },
+      
+                error: err => {
+                  alert(`There is an error: ${err.message}`)
+                }
+              },
+            );
+          } else {
+            alert(`We have received your payment.`)
+            
+          }
         }
       )
-
-      if(this.alreadyExists == null) {
-        console.log("True");
-        this.userPaymentService.savePaymentMethod(this.newPayment).subscribe(
-          {
-            // successful placeOrder
-            next: response => {
-              alert(`We have received your paymment.\nYour payment is added successfully.`);
-
-            },
-  
-            error: err => {
-              alert(`There is an error: ${err.message}`)
-            }
-          },
-        );
-      } else {
-        alert(`We have received your payment.`)
-        console.log("False");
-
-      }
-
+      
       this.resetCart();
 
     }
@@ -253,8 +250,8 @@ export class PaymentPageComponent implements OnInit {
   }
 
   addNewPayment() {
-    console.log("come To here")
     this.listPayment = [];
+    this.choosedPayment = null;
   }
 
   listCourses() {
@@ -272,8 +269,8 @@ export class PaymentPageComponent implements OnInit {
 
   };
 
-  findUser(keyword: String) {
-    console.log("keyword ", keyword);
+  setDefaultExpirationMonth(theMonth: number) {
+    console.log(theMonth);
   }
 
   
