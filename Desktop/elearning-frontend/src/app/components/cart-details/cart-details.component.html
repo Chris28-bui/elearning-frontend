@@ -10,14 +10,15 @@
                     <div class="col-xl-3">
                         <img src="../../../assets/img/kh1.jpg" class="mt-1">
                     </div>
-                    <div class="col-xl-5">
+                    <div class="col-xl-4">
                         <p class="courseName">{{ tempCourseItem.courseName }}</p>
                         <p>By <label>{{ tempCourseItem.courseInstructor.username }}</label></p>
                     </div>
-                    <div class="col-xl-2">
-                        <button (click)="remove(tempCourseItem)">Remove</button>
-                        <button>Save for Later</button>
-                        <button>Move to Wishlist</button>
+                    <div class="col-xl-3">
+                        <button (click)="remove(tempCourseItem)" class="function">Remove</button>
+                        <br/>
+                        <button class="function"> Save for Later</button>
+                        <button class="function">Move to Wishlist</button>
                     </div>
                     <div class="col-xl-2">
                         <p class="courseName price">{{ tempCourseItem.price | currency: 'CAD' }}</p>

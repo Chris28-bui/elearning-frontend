@@ -64,3 +64,7 @@ h5{
 .checkoutButton:focus{
     box-shadow: none;
 }
+
+.function:hover{
+    color: #ec5252;
+}
