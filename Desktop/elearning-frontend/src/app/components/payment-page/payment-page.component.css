@@ -139,3 +139,16 @@ select {
     margin: 20px 0;
     font-weight: 500;
 }
+
+.course-payment-view {
+    margin: 20px 10px 10px 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.checkbox {
+    margin-bottom: 30px;
+}
+
+.col-md-4 img {
+    margin-bottom: 30px;
+}

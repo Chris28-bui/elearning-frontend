@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseCategory } from 'src/app/models/course-category';
 import { CourseService } from 'src/app/services/course.service';
 
@@ -10,7 +11,7 @@ import { CourseService } from 'src/app/services/course.service';
 export class CourseCategoryComponent implements OnInit {
 
   courseCategory: CourseCategory[] = [];
-  constructor(private courseService: CourseService) { }
+  constructor(private courseService: CourseService, private router: Router, private el: ElementRef) { }
 
   ngOnInit(): void {
     this.getCourseCategory();
@@ -26,5 +27,10 @@ export class CourseCategoryComponent implements OnInit {
     return ((data: any) => {
       this.courseCategory = data;
     })
+  }
+
+  goToCategoryPage(courseName: String) {
+
+    this.router.navigateByUrl(`course-category/${courseName}`)
   }
 }

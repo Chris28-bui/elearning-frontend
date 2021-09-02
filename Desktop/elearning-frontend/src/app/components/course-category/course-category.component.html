@@ -4,9 +4,9 @@
         <div class="row">
             <div *ngFor="let tempCourseCategory of courseCategory">
                 <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="categories__items">
+                    <div class="categories__items" (click)="goToCategoryPage(tempCourseCategory.courseCategoryName)">
                         <i class="fa fa-code"></i>
-                        <span> {{tempCourseCategory.courseCategoryName}}</span>
+                        <a style="margin-left: 10px; cursor: pointer"> {{tempCourseCategory.courseCategoryName}}</a>
                     </div>
                 </div>
             </div>
